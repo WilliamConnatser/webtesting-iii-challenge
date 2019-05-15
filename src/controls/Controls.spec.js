@@ -22,10 +22,16 @@ describe('Controls Component',() => {
     });
 
     it('the closed toggle button text changes when clicked', () => {
-        const spy = jest.fn();
-        const {getByText} = render(<Controls closed={false} locked={false} toggleClosed={spy}/>);
+        const toggle = {
+            state: false,
+            toggleHandler: () => {
+                this.state = !this.state;
+            }
+        }
+        const {getByText} = render(<Controls closed={toggle.state} locked={false} toggleClosed={toggle.toggleHandler}/>);
         const button = getByText(/Close Gate/);
         fireEvent.click(button);
-        expect(spy).toHaveBeenCalled();
+        const newButton = getByText(/Open Gate/);
+        expect(newButton.textContent).toBe('Open Gate')
     });
 })
