@@ -5,11 +5,19 @@ import {render,fireEvent} from 'react-testing-library';
 
 describe('Display Component',() => {
 
-    it('hen unlocked or open use the green-led class', () => {
+    it('unlocked or open have the green-led class', () => {
         const {getByText} = render(<Display closed={false} locked={false}/>);
-        const unlockedButton = getByText(/Unlocked/i);
-        const openButton = getByText(/Open/i);
-        expect(unlockedButton.classList).toContain('green-led');
-        expect(openButton.classList).toContain('green-led');
+        const unlocked = getByText(/Unlocked/i);
+        const open = getByText(/Open/i);
+        expect(unlocked.classList).toContain('green-led');
+        expect(open.classList).toContain('green-led');
+    });
+
+    it('locked or closed have the red-led class', () => {
+        const {getByText} = render(<Display closed={true} locked={true}/>);
+        const locked = getByText(/Locked/i);
+        const closed = getByText(/Closed/i);
+        expect(locked.classList).toContain('red-led');
+        expect(closed.classList).toContain('red-led');
     });
 })
